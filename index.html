@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="description" content="Use Viewer to start building new applications or easily embed Cesium into existing applications.">
+    <meta name="cesium-sandcastle-labels" content="Beginner, Showcases">
+    <title>Cesium Demo</title>
+    <script type="text/javascript" src="../Sandcastle-header.js"></script>
+    <script type="text/javascript" src="../../../ThirdParty/requirejs-2.1.20/require.js"></script>
+    <script type="text/javascript">
+        if(typeof require === 'function') {
+            require.config({
+                baseUrl : '../../../Source',
+                waitSeconds : 120
+            });
+        }
+    </script>
+</head>
+<body class="sandcastle-loading" data-sandcastle-bucket="bucket-requirejs.html">
+<style>
+    @import url(../templates/bucket.css);
+</style>
+<div class="fullSize" id="cesiumContainer"></div>
+<div id="loadingOverlay"><h1>Loading...</h1></div>
+<div id="toolbar"></div>
+<script id="cesium_sandcastle_script">
+function startup(Cesium) {
+    'use strict';
+//Sandcastle_Begin
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
+
+var viewer = new Cesium.Viewer('cesiumContainer', {
+                    selectionIndicator:   false,
+                    infoBox:              false,
+                    scene3DOnly:          true,
+                    sceneModePicker:      false,
+                    fullscreenButton:     true,
+                    homeButton:           false,
+                    baseLayerPicker:      false,
+                    animation:            false,
+                    timeline:             false,
+                    geocoder:             false,
+                    navigationHelpButton: false,
+                    imageryProvider:      new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.light',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ'
+}),
+    skyBox: new Cesium.SkyBox({show: false}),
+});
+
+
+
+var tileset = viewer.scene.primitives.add(
+    new Cesium.Cesium3DTileset({
+        url: Cesium.IonResource.fromAssetId(16312),
+        maximumMemoryUsage:128,
+        maximumScreenSpaceError: 9,
+        pointCloudShading: new Cesium.PointCloudShading({attenuation:true,
+                                                     geometricErrorScale:1,
+                                                     maximumAttenuation: 1.5,
+                                                     baseResolution: 1}) 
+        
+         
+    })
+);
+
+
+
+
+viewer.zoomTo(tileset)
+    .otherwise(function (error) {
+        console.log(error);
+    });
+
+
+//Sandcastle_End
+    Sandcastle.finishedLoading();
+}
+if (typeof Cesium !== 'undefined') {
+    startup(Cesium);
+} else if (typeof require === 'function') {
+    require(['Cesium'], startup);
+}
+</script>
+</body>
+</html>
