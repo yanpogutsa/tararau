@@ -11,49 +11,7 @@
 <div id="toolbar"></div>
   <script>
    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
-
-var viewer = new Cesium.Viewer('cesiumContainer', {
-                    selectionIndicator:   false,
-                    infoBox:              false,
-                    scene3DOnly:          true,
-                    sceneModePicker:      false,
-                    fullscreenButton:     true,
-                    homeButton:           false,
-                    baseLayerPicker:      false,
-                    animation:            false,
-                    timeline:             false,
-                    geocoder:             false,
-                    navigationHelpButton: false,
-                    imageryProvider:      new Cesium.MapboxImageryProvider({
-    mapId: 'mapbox.light',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ'
-}),
-    skyBox: new Cesium.SkyBox({show: false}),
-});
-
-
-
-var tileset = viewer.scene.primitives.add(
-    new Cesium.Cesium3DTileset({
-        url: Cesium.IonResource.fromAssetId(16312),
-        maximumMemoryUsage:128,
-        maximumScreenSpaceError: 9,
-        pointCloudShading: new Cesium.PointCloudShading({attenuation:true,
-                                                     geometricErrorScale:1,
-                                                     maximumAttenuation: 1.5,
-                                                     baseResolution: 1}) 
-        
-         
-    })
-);
-
-
-
-
-viewer.zoomTo(tileset)
-    .otherwise(function (error) {
-        console.log(error);
-    });
+    var viewer = new Cesium.Viewer('cesiumContainer');
   </script>
 </body>
 </html>
