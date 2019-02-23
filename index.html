@@ -82,7 +82,7 @@ var baseLayerPicker = new Cesium.BaseLayerPicker('baseLayerPickerContainer', {
 
 
 
-var tileset = viewer.scene.primitives.add(
+var tileset = cesiumWidget.scene.primitives.add(
     new Cesium.Cesium3DTileset({
         url: Cesium.IonResource.fromAssetId(16312),
         maximumMemoryUsage:2048,
@@ -95,7 +95,7 @@ var tileset = viewer.scene.primitives.add(
          
     })
 );
-viewer.zoomTo(tileset)
+cesiumWidget.zoomTo(tileset)
     .otherwise(function (error) {
         console.log(error);
     });
