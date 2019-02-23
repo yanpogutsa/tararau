@@ -7,8 +7,7 @@
     <title>Торатау</title>
     <script src="https://cesiumjs.org/releases/1.54/Build/Cesium/Cesium.js"></script>
   <style>
-    @import url(https://yanpogutsa.github.io/css/BaseLayerPicker.css);
-    @import url(../Build/Cesium/Widgets/widgets.css);
+      @import url(../Build/Cesium/Widgets/widgets.css);
       #cesiumContainer {
           position: absolute;
           top: 0;
@@ -30,59 +29,37 @@
           height: 100%;
       html, body, #cesiumContainer {
           width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
-      };
+      }
   </style>
   <link href="https://cesiumjs.org/releases/1.54/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
 <body>
   <div id="cesiumContainer" class="fullSize"></div>
-  <div id="baseLayerPickerContainer" style="position:absolute;top:24px;right:24px;width:38px;height:38px;"></div>
   <script>
    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
 
-    var imageryViewModels = [];
- imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Mapbox Светлая',
-     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-light.tm2/master/.thumb.png',
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.light',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })      
-         ;}
- }));
-
- imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Mapbox Тёмная',
-     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-dark.tm2/master/.thumb.png',
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.dark',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })        
-         ;}
- }));
-
-imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Bing спутник',
-     iconUrl : Cesium.buildModuleUrl('https://cesiumjs.org/Cesium/Source/Widgets/Images/ImageryProviders/bingAerial.png'),
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.IonImageryProvider({ assetId: 2 });
-     }
- }));
-
-
-
-var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer', { imageryProvider: false, skyBox: new Cesium.SkyBox({show: false}) });
-
-var layers = cesiumWidget.imageryLayers;
-var baseLayerPicker = new Cesium.BaseLayerPicker('baseLayerPickerContainer', {
-    globe : cesiumWidget.scene.globe,
-    imageryProviderViewModels : imageryViewModels
+var viewer = new Cesium.Viewer('cesiumContainer', {
+                    selectionIndicator:   false,
+                    infoBox:              false,
+                    scene3DOnly:          true,
+                    sceneModePicker:      false,
+                    fullscreenButton:     true,
+                    homeButton:           false,
+                    baseLayerPicker:      false,
+                    animation:            false,
+                    timeline:             false,
+                    geocoder:             false,
+                    navigationHelpButton: false,
+                    imageryProvider:      new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.light',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ'
+}),
+    skyBox: new Cesium.SkyBox({show: false}),
 });
 
 
 
-var tileset = cesiumWidget.scene.primitives.add(
+var tileset = viewer.scene.primitives.add(
     new Cesium.Cesium3DTileset({
         url: Cesium.IonResource.fromAssetId(16312),
         maximumMemoryUsage:2048,
@@ -95,7 +72,7 @@ var tileset = cesiumWidget.scene.primitives.add(
          
     })
 );
-cesiumWidget.zoomTo(tileset)
+viewer.zoomTo(tileset)
     .otherwise(function (error) {
         console.log(error);
     });
