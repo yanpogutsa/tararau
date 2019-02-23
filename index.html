@@ -7,7 +7,6 @@
     <title>Торатау</title>
     <script src="https://cesiumjs.org/releases/1.54/Build/Cesium/Cesium.js"></script>
   <style>
-      @import url(https://yanpogutsa.github.io/css/BaseLayerPicker.css);
       @import url(../Build/Cesium/Widgets/widgets.css);
       #cesiumContainer {
           position: absolute;
@@ -36,43 +35,10 @@
 </head>
 <body>
   <div id="cesiumContainer" class="fullSize"></div>
-  <div id="baseLayerPickerContainer" style="position:absolute;top:24px;right:24px;width:38px;height:38px;"></div>
   <script>
    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
 
-var imageryViewModels = [];
- imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Mapbox Светлая',
-     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-light.tm2/master/.thumb.png',
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.light',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })
-         
-         ;}
- }));
-
- imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Mapbox Тёмная',
-     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-dark.tm2/master/.thumb.png',
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.dark',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })
-         
-         ;}
- }));
-
-imageryViewModels.push(new Cesium.ProviderViewModel({
-     name : 'Bing спутник',
-     iconUrl : Cesium.buildModuleUrl('https://cesiumjs.org/Cesium/Source/Widgets/Images/ImageryProviders/bingAerial.png'),
-     tooltip : '',
-     creationFunction : function() {
-         return new Cesium.IonImageryProvider({ assetId: 2 });
-     }
- }));
-
-    var viewer = new Cesium.Viewer('cesiumContainer', {
+var viewer = new Cesium.Viewer('cesiumContainer', {
                     selectionIndicator:   false,
                     infoBox:              false,
                     scene3DOnly:          true,
@@ -84,7 +50,9 @@ imageryViewModels.push(new Cesium.ProviderViewModel({
                     timeline:             false,
                     geocoder:             false,
                     navigationHelpButton: false,
-                    imageryProvider:      false,
+                    imageryProvider:      new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.light',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ'
 }),
     skyBox: new Cesium.SkyBox({show: false}),
 });
@@ -108,11 +76,6 @@ viewer.zoomTo(tileset)
     .otherwise(function (error) {
         console.log(error);
     });
-    var layers = cesiumWidget.imageryLayers;
-var baseLayerPicker = new Cesium.BaseLayerPicker('baseLayerPickerContainer', {
-    globe : cesiumWidget.scene.globe,
-    imageryProviderViewModels : imageryViewModels
-});
   </script>
 </body>
 </html>
