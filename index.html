@@ -35,8 +35,42 @@
 </head>
 <body>
   <div id="cesiumContainer" class="fullSize"></div>
+  <div id="baseLayerPickerContainer" style="position:absolute;top:24px;right:24px;width:38px;height:38px;"></div>
   <script>
-   Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
+
+var imageryViewModels = [];
+ imageryViewModels.push(new Cesium.ProviderViewModel({
+     name : 'Mapbox Светлая',
+     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-light.tm2/master/.thumb.png',
+     tooltip : '',
+     creationFunction : function() {
+         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.light',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })
+         
+         ;}
+ }));
+
+ imageryViewModels.push(new Cesium.ProviderViewModel({
+     name : 'Mapbox Тёмная',
+     iconUrl : 'https://raw.githubusercontent.com/mapbox/mapbox-studio-dark.tm2/master/.thumb.png',
+     tooltip : '',
+     creationFunction : function() {
+         return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.dark',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })
+         
+         ;}
+ }));
+
+imageryViewModels.push(new Cesium.ProviderViewModel({
+     name : 'Mapbox спутник',
+     iconUrl : Cesium.buildModuleUrl('https://cesiumjs.org/Cesium/Source/Widgets/Images/ImageryProviders/mapboxSatellite.png'),
+     tooltip : '',
+     creationFunction : function() {return new Cesium.MapboxImageryProvider({ mapId: 'mapbox.satellite',
+    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ' })
+         
+         ;}
+ }));
 
 var viewer = new Cesium.Viewer('cesiumContainer', {
                     selectionIndicator:   false,
@@ -45,20 +79,20 @@ var viewer = new Cesium.Viewer('cesiumContainer', {
                     sceneModePicker:      false,
                     fullscreenButton:     true,
                     homeButton:           false,
-                    baseLayerPicker:      true,
+                    baseLayerPicker:      false,
                     animation:            false,
                     timeline:             false,
                     geocoder:             false,
                     navigationHelpButton: false,
-                    imageryProvider:      new Cesium.MapboxImageryProvider({
-    mapId: 'mapbox.light',
-    accessToken: 'pk.eyJ1IjoieWFucG9ndXRzYSIsImEiOiJjajBhMzJydzIwZmtmMndvY3ozejFicTdqIn0.T6DCFk1BSoEkdG-2agIoQQ'
-}),
-    skyBox: new Cesium.SkyBox({show: false}),
+                    imageryProvider:      false,
+                    skyBox: new Cesium.SkyBox({show: false}),
 });
 
-
-
+var layers = viewer.imageryLayers;
+var baseLayerPicker = new Cesium.BaseLayerPicker('baseLayerPickerContainer', {
+    globe : viewer.scene.globe,
+    imageryProviderViewModels : imageryViewModels
+});
 var tileset = viewer.scene.primitives.add(
     new Cesium.Cesium3DTileset({
         url: Cesium.IonResource.fromAssetId(16312),
