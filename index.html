@@ -62,7 +62,7 @@ var viewer = new Cesium.Viewer('cesiumContainer', {
 var tileset = viewer.scene.primitives.add(
     new Cesium.Cesium3DTileset({
         url: Cesium.IonResource.fromAssetId(16312),
-        maximumMemoryUsage:128,
+        maximumMemoryUsage:2048,
         maximumScreenSpaceError: 9,
         pointCloudShading: new Cesium.PointCloudShading({attenuation:true,
                                                      geometricErrorScale:1,
