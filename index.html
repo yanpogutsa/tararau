@@ -107,6 +107,45 @@ var tileset = viewer.scene.primitives.add(
          
     })
 );
+    
+var peakC = Cesium.Color.fromBytes(100,170,220,150);
+var hotelC = Cesium.Color.fromBytes(228,180,76,150);
+var gulagC = Cesium.Color.fromBytes(100,30,30,150);
+var sabantuiC = Cesium.Color.fromBytes(120,220,240,150);
+
+var Road = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Roads-reconstruction.geojson',
+                                        {strokeWidth: 3,
+                                         stroke: Cesium.Color.BLACK,
+                                         clampToGround:true});
+
+var Ped = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Roads-ped.geojson',
+                                        {strokeWidth: 3,
+                                         stroke: hotelC,
+                                         clampToGround:true});
+
+var Peak = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Peak.geojson',
+                                        {strokeWidth: 0,
+                                         fill: peakC,
+                                         clampToGround:true});
+var Hotel = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Hotel.geojson',
+                                        {strokeWidth: 0,
+                                         fill: hotelC,
+                                         clampToGround:true});
+var Gulag = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Gulag.geojson',
+                                        {strokeWidth: 0,
+                                         fill: gulagC,
+                                         clampToGround:true});
+var Sabantui = Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/yanpogutsa/yanpogutsa.github.io/master/geometry/Sabantui.geojson',
+                                        {strokeWidth: 0,
+                                         fill: sabantuiC,
+                                         clampToGround:true});
+
+viewer.dataSources.add(Peak);
+viewer.dataSources.add(Road);
+viewer.dataSources.add(Ped);
+viewer.dataSources.add(Hotel);
+viewer.dataSources.add(Gulag);
+viewer.dataSources.add(Sabantui);
 viewer.zoomTo(tileset)
     .otherwise(function (error) {
         console.log(error);
