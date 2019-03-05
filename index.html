@@ -38,46 +38,6 @@
   <div id="cesiumContainer" class="fullSize"></div>
   <div id="baseLayerPickerContainer" style="position:absolute;top:24px;right:24px;width:38px;height:38px;"></div>
   <script>
-      <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=yes">
-    <title>Торатау</title>
-    <script src="https://cesiumjs.org/releases/1.54/Build/Cesium/Cesium.js"></script>
-  <style>
-      @import url(https://yanpogutsa.github.io/css/BaseLayerPicker.css);
-      @import url(../Build/Cesium/Widgets/widgets.css);
-      #cesiumContainer {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          overflow: hidden;
-          padding: 0;
-          font-family: sans-serif;
-      }
-      html {
-        height: 100%;
-      }
-      body {
-          padding: 0;
-          margin: 0;
-          overflow: hidden;
-          height: 100%;
-      html, body, #cesiumContainer {
-          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
-      }
-  </style>
-  <link href="https://cesiumjs.org/releases/1.54/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-</head>
-<body>
-  <div id="cesiumContainer" class="fullSize"></div>
-  <div id="baseLayerPickerContainer" style="position:absolute;top:24px;right:24px;width:38px;height:38px;"></div>
-  <script>
       Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ODRjNjcyZC02MWNiLTRiMjktODUwMi01ZjRhNTg0ODRiZmMiLCJpZCI6MzIwLCJpYXQiOjE1MjUyMjExOTF9.2WKC_dGzCKPCqdn051lh2MjiP85suxaOtYfnqb5dTzI';
 
 var imageryViewModels = [];
@@ -190,10 +150,6 @@ viewer.zoomTo(tileset)
     .otherwise(function (error) {
         console.log(error);
     });
-  </script>
-</body>
-</html>
-
   </script>
 </body>
 </html>
